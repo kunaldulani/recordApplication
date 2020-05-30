@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Application, Status
+
+# Register Application Model.
+admin.site.register(Application)
+
+# Register Status Model.
+admin.site.register(Status)

@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from .addToCalendar import addToCalendar
-
+import datetime
 # All possible status
 class Status(models.Model):
     status = models.CharField(max_length=50)
@@ -14,10 +14,10 @@ class Status(models.Model):
 class Application(models.Model):
     organizationName = models.CharField(max_length=120)
     status = models.ForeignKey(Status, on_delete=models.SET("Status Deleted"), related_name="statusName")
-    comments = models.CharField(max_length=300)
+    comments = models.CharField(max_length=300, null=True, blank=True)
     link = models.CharField(max_length=500)
     dateApplied = models.DateField(default=timezone.now)
-    reminderDate = models.DateField(default="2000-01-01", null=True, blank=True)
+    reminderDate = models.DateField(default="", null=True, blank=True)
     reminderNote = models.CharField(max_length=3000, null=True, blank=True)
     attendeeEmail = models.CharField(max_length=100, null=True, blank=True)
 

@@ -10,7 +10,7 @@ def startup():
     scopes = ['https://www.googleapis.com/auth/calendar']
 
     # Create flow and get credentials.
-    flow = InstalledAppFlow.from_client_secrets_file("client_secret.json", scopes=scopes)
+    flow = InstalledAppFlow.from_client_secrets_file("recordApp/client_secret.json", scopes=scopes)
     credentials = flow.run_console()
 
     # Save credentials to pickle to avoid authorizing every time.
@@ -61,6 +61,13 @@ def create_event(start_time_str, summary, duration=1,attendees=None, description
 
     return service.events().insert(calendarId='primary', body=event,sendNotifications=True).execute()
 
+
 def addToCalendar(self):
-    # Create an event by calling the above mehtod
-    create_event('31 May 9.30pm', "Test Meeting using CreateFunction Method",1.0,"kdulani@andrew.cmu.edu","Test Description","None")
+    print (self.dateApplied)
+    if self.dateApplied is not None:
+        print("Adding event")
+        extractedDate = self.reminderDate.strftime('%d %b')
+        eventDate = extractedDate + " 9.00am"
+        print(eventDate)
+        # Create an event by calling the above method
+        create_event(eventDate, self.organizationName, 1.0, self.attendeeEmail, self.reminderNote, "None")
